@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+// Random generator
+    let arrayCPU = ['r', 'p', 's']
+    
+
+    for (let i = 0; i <= arrayCPU.length; i++){
+      let cpuChoice = arrayCPU[Math.floor(Math.random() * arrayCPU.length)];
+      let guess = prompt('Rock, Paper Scissors! Pick: r, p, or s')
+      console.log(guess , cpuChoice)
+      if (guess === cpuChoice) {
+        alert('Its a draw')
+      } else if (guess === "s" && cpuChoice === "p") {
+        alert("You win!")
+      } else if (guess === "p" && cpuChoice === "r") {
+        alert("You win!")
+      } else if (guess === "r" && cpuChoice === "s") {
+        alert("You win!")
+      } else ("Git gud scrub!")
+    }
+
+  </script>
+
+
+</body>
+</html>
