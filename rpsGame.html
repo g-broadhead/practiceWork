@@ -10,24 +10,47 @@
   
   <script>
 
-// Random generator
-    let arrayCPU = ['r', 'p', 's']
-    
 
-    for (let i = 0; i <= arrayCPU.length; i++){
-      let cpuChoice = arrayCPU[Math.floor(Math.random() * arrayCPU.length)];
-      let guess = prompt('Rock, Paper Scissors! Pick: r, p, or s')
-      console.log(guess , cpuChoice)
-      if (guess === cpuChoice) {
-        alert('Its a draw')
-      } else if (guess === "s" && cpuChoice === "p") {
-        alert("You win!")
-      } else if (guess === "p" && cpuChoice === "r") {
-        alert("You win!")
-      } else if (guess === "r" && cpuChoice === "s") {
-        alert("You win!")
-      } else ("Git gud scrub!")
+    let wins = 0
+    let ties = 0
+    let losses = 0
+
+    const choices = ['r', 'p', 's']
+
+    for (let i = 0; i < 10; i++) {
+      const cpu = choices[Math.floor(Math.random() * 3)]
+      console.log(cpu)
+
+      const user = prompt('Please chose (r, p, or s)')
+
+      if (choices.indexof(user) === -1) {
+        i--
+      } else {
+
+        alert(`The computer chose: ${cpu}`)
+
+        if (user === cpu) {
+          ties++
+          alert("It's a draw")
+        } else if ((user === 'r' && cpu === 's') ||
+        (user === 'p' && cpu === 'r') ||
+        (user === 's'&& cpu == 'p')) {
+          wins++
+          alert('You win!')
+        } else {
+          losses++
+          alert('You lose')
+        }
+      }
+
     }
+
+    alert(`
+    Wins = ${wins}
+    Losses = ${losses}
+    Ties = ${ties}
+    `)
+
 
   </script>
 
