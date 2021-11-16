@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form>
+    <p>
+      <label for="toDo">Add item to you To Do list:</label>
+      <input type="text" name="toDo" id="toDo">
+    </p>
+    <button id="submit">Add Chore</button>
+  </form>
+  <div id="choreData"></div>
+  <script>
+
+
+    const choreData = [
+      {
+        chore: 'Make bed',
+      
+      },
+      {
+        chore: 'Clean kitchen',
+      },
+      {
+        chore: 'Party',
+        
+      }
+    ]
+
+    for (let i = 0; i < choreData.length; i++) {
+      let userElem = document.createElement('div')
+      userElem.innerHTML = `
+        <h3>${choreData[i].chore}</h3>
+        <button class="delete">delete</button>
+        <button class="complete">complete</button>
+        <hr>
+      `
+      document.getElementById('choreData').append(userElem);
+    }
+
+
+
+    document.getElementById('submit').addEventListener('click', event => {
+      event.preventDefault()
+
+      console.log(document.getElementById('toDo').value)
+
+      let userElem = document.createElement('div')
+      userElem.innerHTML = `
+        <h3>${document.getElementById('toDo').value}</h3>
+        <button class="delete">delete</button>
+        <button class="complete">complete</button>
+        <hr>
+      `
+      document.getElementById('choreData').append(userElem)
+
+      document.getElementById('chore').value = ''
+
+
+    })
+
+    document.addEventListener('click', event => {
+      if (event.target.className === 'delete') {
+        event.target.parentNode.remove()
+      }
+    })
+
+    document.addEventListener('click', event => {
+        if (event.target.className === 'complete') {
+          event.target.parentNode.style.backgroundColor "green"
+        }
+      })
+
+      document.addEventListener('click', event => {
+        if (event.target.className === 'clearAll') {
+
+        }
+      })
+
+  </script>
+</body>
+
+</html>

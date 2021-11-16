@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form>
+    <p>
+      <label for="show">Show Title</label>
+      <input type="text" name="show" id="show">
+    </p>
+    <p>
+      <label for="numEpisodes">Number episodes</label>
+      <input type="text" name="numEpisodes" id="numEpisodes">
+    </p>
+    <p>
+      <label for="mainChar">Main Character</label>
+      <input type="text" name="mainChar" id="mainChar">
+    </p>
+    <p>
+      <label for="director">Director name</label>
+      <input type="text" name="director" id="director">
+    </p>
+    <button id="submit">Submit Info</button>
+  </form>
+  <div id="showData"></div>
+  <script>
+
+
+     const showData = [
+        {
+          show: 'Breaking Bad',
+          numEpisode: '62',
+          mainChar: 'Walter White',
+          director: 'Vince Gilligan'
+        },
+        {
+          show: 'Things',
+          numEpisode: '100',
+          mainChar: 'Some Guy',
+          director: 'This dude'
+        },
+        {
+          show: 'And',
+          numEpisode: '200',
+          mainChar: 'That Guy',
+          director: 'This other dude'
+        },
+        {
+         show: 'Stuff',
+         numEpisode: '300',
+         mainChar: 'That Guy',
+         director: 'This other dude'
+        },
+        {
+         show: 'Flavor Town',
+         numEpisode: '400',
+         mainChar: 'Guy Fieri',
+         director: 'That one guy'
+        }
+      ]
+
+      
+      
+        document.getElementById('showData').append(userElem)
+      }
+
+
+
+    document.getElementById('submit').addEventListener('click', event => {
+      event.preventDefault()
+
+      console.log(document.getElementById('show').value)
+      console.log(document.getElementById('numEpisodes').value)
+      console.log(document.getElementById('mainChar').value)
+      console.log(document.getElementById('director').value)
+
+      let userElem = document.createElement('div')
+      userElem.innerHTML = `
+        <h3>${document.getElementById('show').value}</h3>
+        <h4>${document.getElementById('numEpisodes').value}</h4>
+        <h3>${document.getElementById('mainChar').value}</h3>
+        <h4>${document.getElementById('director').value}</h4>
+        <button class="delete">delete</button>
+        <hr>
+      `
+      document.getElementById('showData').append(userElem)
+
+      document.getElementById('show').value = ''
+      document.getElementById('numEpisodes').value = ''
+      document.getElementById('mainChar').value = ''
+      document.getElementById('director').value = ''
+
+      
+    })
+    
+    document.addEventListener('click', event => {
+        if (event.target.className === 'delete') {
+          event.target.parentNode.remove()
+        }
+      })
+
+  </script>
+</body>
+
+</html>
