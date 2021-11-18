@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="bg-light p-5 rounded-lg mb-3 row">
+      <h1 class="display-4">Random Quote Generator</h1>
+      <p class="lead">This is a simple application to generate and save random quotes that you like and that inspire
+        you.</p>
+      <hr class="my-4">
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row">
+          <h4>Click the button to generate a random quote</h4>
+          <button id="getRandom" class="btn btn-primary">Random Quote</button>
+        </div>
+        <hr>
+        <div id="showRandom" class="row">
+          <h6>"Your random quote will appear here" - Developer</h6>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h4>My Saved Quotes</h4>
+        <ul id="quotes" class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto saved">
+              <div class="fw-bold">"I saved this quote because I like it"</div>
+              - Developer
+            </div>
+            <button class="btn btn-danger">X</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+    let quotes = JSON.parse(localStorage.getItem('quotes')) || []
+    let quote = {}
+
+    const renderQuotes = () => {
+      document.getElementById('quotes').innerHTML = ''
+      quotes.forEach((quote, i) => {
+        const quoteElem = document.createElement('li')
+        quoteElem.className = 'list-group-item d-flex justify-content-between align-items-start'
+        quoteElem.innerHTML = `
+          <div class="ms-2 me-auto saved">
+            <div class="fw-bold">"${quote.text}"</div>
+            - ${quote.author}
+          </div>
+          <button class="btn btn-danger delete" data-index="${i}">X</button>
+        `
+        document.getElementById('quotes').append(quoteElem)
+      })
+    }
+
+    document.getElementById('getRandom').addEventListener('click', () => {
+      axios.get('https://goquotes-api.herokuapp.com/api/v1/random?count=1')
+        .then(res => {
+          quote = res.data.quotes[0]
+
+          document.getElementById('showRandom').innerHTML = ''
+
+          const quoteElem = document.createElement('h6')
+          quoteElem.textContent = `"${quote.text}" - ${quote.author}`
+          document.getElementById('showRandom').append(quoteElem)
+
+          const btnElem = document.createElement('button')
+          btnElem.className = 'btn btn-success'
+          btnElem.id = 'saveRandom'
+          btnElem.textContent = 'Save'
+          document.getElementById('showRandom').append(btnElem)
+        })
+        .catch(err => console.log(err))
+    })
+
+    document.addEventListener('click', event => {
+      if (event.target.id === 'saveRandom') {
+        quotes.push(quote)
+        renderQuotes()
+        localStorage.setItem('quotes', JSON.stringify(quotes))
+        document.getElementById('showRandom').innerHTML = ''
+      }
+    })
+
+    document.addEventListener('click', event => {
+      if (event.target.classList.contains('delete')) {
+        const index = parseInt(event.target.dataset.index)
+        quotes.splice(index, 1)
+        renderQuotes()
+        localStorage.setItem('quotes', JSON.stringify(quotes))
+      }
+    })
+
+    renderQuotes()
+  </script>
+</body>
+
+</html>
