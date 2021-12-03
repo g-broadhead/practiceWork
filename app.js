@@ -9,3 +9,4 @@ const display = arr => {
 display(movies)
 display(songs)
 display(games)
+
