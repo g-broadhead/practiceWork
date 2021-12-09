@@ -21,10 +21,10 @@ const music = {
 
 app.get('/movie', (req, res) => {
   // res.sendFile(path.join(__dirname, 'movie.html'))
-  res.json(movies)
+  res.json(movie)
 })
-const movies = {
-  name: 'Shrek',
+const movie = {
+  title: 'Shrek',
   genre: 'Animated Masterpiece',
   rating: '11/10'
 }
