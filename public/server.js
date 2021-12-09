@@ -3,15 +3,16 @@ const path = require('path')
 
 const app = express()
 
+app.use(express.static(path.join(_dirname, 'public')))
+
 app.get('/home', (req, res) => {
   // res.sendFile(path.join(__dirname, 'index.html'))
   })
 
 app.get('/music', (req, res) => {
-  // res.sendFile(path.join(__dirname, 'music.html'))
-  res.json(music)
+  res.sendFile(path.join(__dirname, 'music.html'))
 })
-const music = {
+const bands = {
   band: 'Dragonforce',
   genre: 'Power Metal',
   album: 'Inhuman Rampage'
@@ -20,8 +21,7 @@ const music = {
   
 
 app.get('/movie', (req, res) => {
-  // res.sendFile(path.join(__dirname, 'movie.html'))
-  res.json(movie)
+  res.sendFile(path.join(__dirname, 'movie.html'))
 })
 const movie = {
   title: 'Shrek',
@@ -31,7 +31,13 @@ const movie = {
   
 
 
+app.get('/musiclog', (req, res) => {
+  res.json(bands)
+})
 
+app.get('/movielist', (req, res) => {
+  res.json(movie)
+})
 
 
 
